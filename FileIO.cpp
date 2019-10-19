@@ -13,12 +13,35 @@ using namespace std;
 
 int KP_FileIO::getFileContents(const std::string &filename, std::string &contents)
 {
-	//TODO fill in
+	fstream myfile;
+	string line;
+	myfile.open(filename);
+	if(!myfile.is_open()){
+		contents.clear();
+		return COULD_NOT_OPEN_FILE_TO_READ;
+	}
+	else{
+		while(!myfile.eof()){
+			getline(myfile,line);
+			contents += line;
+		}
+		return SUCCESS;
+	}
 }
 
 int KP_FileIO::writeVectortoFile(const std::string filename,std::vector<std::string> &myEntryVector)
 {
-	//TODO fill in
+	ofstream myfile;
+	myfile.open(filename);
+	if(!myfile.is_open()){
+		return COULD_NOT_OPEN_FILE_TO_WRITE;
+	}
+	else{
+		for (int i = 0; i < myEntryVector.size(); i++){
+			myfile << myEntryVector[i] << endl;
+		}
+		return SUCCESS;
+	}
 }
 
 
