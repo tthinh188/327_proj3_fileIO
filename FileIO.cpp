@@ -15,7 +15,8 @@ int KP_FileIO::getFileContents(const std::string &filename, std::string &content
 {
 	fstream myfile;
 	string line;
-	myfile.open(filename);
+	myfile.open(filename.c_str());
+
 	if(!myfile.is_open()){
 		contents.clear();
 		return COULD_NOT_OPEN_FILE_TO_READ;
@@ -25,6 +26,7 @@ int KP_FileIO::getFileContents(const std::string &filename, std::string &content
 			getline(myfile,line);
 			contents += line;
 		}
+		myfile.close();
 		return SUCCESS;
 	}
 }
@@ -33,6 +35,7 @@ int KP_FileIO::writeVectortoFile(const std::string filename,std::vector<std::str
 {
 	ofstream myfile;
 	myfile.open(filename);
+
 	if(!myfile.is_open()){
 		return COULD_NOT_OPEN_FILE_TO_WRITE;
 	}
@@ -40,6 +43,7 @@ int KP_FileIO::writeVectortoFile(const std::string filename,std::vector<std::str
 		for (int i = 0; i < myEntryVector.size(); i++){
 			myfile << myEntryVector[i] << endl;
 		}
+		myfile.close();
 		return SUCCESS;
 	}
 }
